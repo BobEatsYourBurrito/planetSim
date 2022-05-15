@@ -36,9 +36,10 @@ class Player {
   attract(target) {
     let force = p5.Vector.sub(target.pos, this.pos);
     if(force.mag() < 300 && force.mag() > target.r) {
+      let mass = map(target.r, 20, 40, 1, 2);
       let g = force.mag();
       let dSq = force.magSq();
-      let strength = g * 1.5 / dSq;
+      let strength = g * mass / dSq;
       force.setMag(strength);
       this.applyForce(force);
     }
