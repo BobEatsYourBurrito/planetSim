@@ -1,27 +1,30 @@
 class Particle {
-  constructor(x, y) {
-    this.pos = createVector(x, y);
-    this.vel = createVector(random(-0.4, 0.4), random(-0.4, 0.4));
+  constructor(origin) {
+    this.pos = origin.copy();
+    this.vel = createVector(0, 0, 0);
     this.acc = createVector();
     this.lifespan = 255;
     this.heat = random(200, 255);
-    gravity = createVector(0, .1);
+    //this.gravity = createVector(0, 0.25, 0);
   }
 
   render() {
+    push()
+    translate(this.pos);
     noStroke();
-    fill(this.heat, random(10, 69), 0, this.lifespan);
-    ellipse(this.pos.x, this.pos.y, 4);
+    fill(0,0,100, this.lifespan);
+    sphere(2);
+    pop();
   }
 
   update() {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.mult(0);
-    this.lifespan -= 3;
+    this.lifespan -= 15;
     this.heat -= 3
 
-//    this.acc.add(gravity);
+    this.acc.add(this.gravity);
   }
 
   isDead() {
