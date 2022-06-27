@@ -1,25 +1,25 @@
 class ParticleSystem {
-  constructor(origin) {
-    this.pos = origin.copy();
+  constructor(x, y) {
+    this.pos = createVector(x, y);
     this.particles = [];
   }
 
   addParticle(particleAmount) {
-   for(let i = 0; i < particleAmount; i++) {
-      this.particles.push(new Particle(this.pos));
-    }
+  //  for(let i = 0; i < particleAmount; i++) {
+      this.particles.push(new Particle(player.pos.x, player.pos.y));
+    //}
   }
 
   run() {
     for(let i = 0; i < this.particles.length-1; i++) {
-      let p = this.particles[i];
-      let force = createVector(random(-0.3,0.3),random(-0.3,0.3), 1);
-      this.particles[i].applyForce(force);
-      this.particles[i].update();
-      this.particles[i].render();
+      let p = this.particles[i]; {
+        this.particles[i].applyForce(player.vel * -1);
+        this.particles[i].update();
+        this.particles[i].render();
 
-      if (this.particles[i].isDead()) {
-        this.particles.splice(i, 1)
+        if (this.particles[i].isDead()) {
+          this.particles.splice(i, 1)
+        }
       }
     }
   }
